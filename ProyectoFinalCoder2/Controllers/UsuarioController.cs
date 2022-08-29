@@ -55,10 +55,14 @@ namespace EjemploDeClase
             });
         }
 
+        [HttpGet("Login")]
+        public Usuario Login(string NombreUsuario,string Contraseña)
+        {
+            return new Usuario();
+        }
 
 
 
-            
 
     }
 
