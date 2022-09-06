@@ -6,38 +6,39 @@ namespace EjemploDeClase
     {
         public const string ConnectionString = "Server = LAPTOP-JH0D6200; Initial Catalog = SistemaGestion;Trusted_Connection=True";
 
-        public static  List<Venta> ObtenerVentas()
+        public static List<Venta> GetVentas()
         {
-            List<Venta> Ventas = new List<Venta>();
-            using (SqlConnection SqlConnection = new SqlConnection(ConnectionString))
+            List<Venta> listaObtenerVentas = new List<Venta>();
+
+            using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
-                using (SqlCommand SqlCommand = new SqlCommand(
-                    "SELECT * FROM Venta", SqlConnection))
-                {
-                    SqlConnection.Open();
+                string queryGetVentas = "SELECT * FROM [SistemaGestion].[dbo].[Usuario]";
 
-                    using (SqlDataReader SqlDataReader = SqlCommand.ExecuteReader())
+                
+                    using (SqlCommand sqlCommand = new SqlCommand(queryGetVentas, sqlConnection))
                     {
-                        if (SqlDataReader.HasRows)
+                        sqlConnection.Open();
+
+                        using (SqlDataReader dataReader = sqlCommand.ExecuteReader())
                         {
-                            while (SqlDataReader.Read())
+                            if (dataReader.HasRows)
                             {
-                                Venta venta = new Venta();
-                                venta.id_venta = Convert.ToInt32(SqlDataReader["Id"]);
-                                venta.comentarios = SqlDataReader["Comentarios"].ToString();
-
-                                Ventas.Add(venta);
-
+                                while (dataReader.Read())
+                                {
+                                    Venta venta = new Venta();
+                                    venta.id_venta = Convert.ToInt32(dataReader["Id"]);
+                                    venta.comentarios = dataReader["Nombre"].ToString();
+                                    listaObtenerVentas.Add(venta);
+                                }
                             }
+                            dataReader.Close();
                         }
+                        sqlConnection.Close();
                     }
-                    SqlConnection.Close();
-
-                }
-
+                
+              
             }
-            return Ventas;
-
+            return listaObtenerVentas;
         }
         public static bool  BorrarUnaVenta(int idVenta)
         {
@@ -127,6 +128,9 @@ namespace EjemploDeClase
           
             }
             return resultado;
+      
         }
+    
+    
     }
 }

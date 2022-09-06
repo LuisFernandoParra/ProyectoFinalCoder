@@ -12,7 +12,7 @@ namespace EjemploDeClase
         public List<Venta> GetVentass()
         {
 
-            return VentasHandler.ObtenerVentas();
+            return VentasHandler.GetVentas();
 
 
         }

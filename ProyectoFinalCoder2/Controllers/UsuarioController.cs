@@ -9,9 +9,9 @@ namespace EjemploDeClase
     public class UsuarioController : ControllerBase
     {
         [HttpGet(Name = "GetUsuarios")]
-        public List<Usuario> GetUsuarios()
+        public List<Usuario> GetUsuarios([FromBody]string NombreUsuario)
         {
-            return UsuarioHandler.ObtenerUsuarios();
+            return UsuarioHandler.ObtenerUsuariosPorNombreDeUsuario(NombreUsuario);
         }
 
         [HttpDelete]

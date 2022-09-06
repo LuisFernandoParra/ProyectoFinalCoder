@@ -9,43 +9,48 @@ namespace EjemploDeClase
     {
         public const string ConnectionString = "Server = LAPTOP-JH0D6200; Initial Catalog = SistemaGestion;Trusted_Connection=True";
 
-        public static List<Usuario> ObtenerUsuarios()
+        public static List<Usuario> ObtenerUsuariosPorNombreDeUsuario(string NombreUsuario)
         {
-            List<Usuario> Usuarios = new List<Usuario>();
-            using (SqlConnection SqlConnection = new SqlConnection(ConnectionString))
+           
+            List<Usuario> ObtenerUsuariosPorNombreDeUsuario = new List<Usuario>();
+
+            using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
-                using (SqlCommand SqlCommand = new SqlCommand(
-                    "SELECT * FROM Usuario", SqlConnection))
+                string queryGetUsuariosId = "SELECT * FROM [SistemaGestion].[dbo].[Usuario]" +
+                    "WHERE NombreUsuario = @NombreUsuario";
+
+                using (SqlCommand sqlCommand = new SqlCommand(queryGetUsuariosId, sqlConnection))
                 {
-                    SqlConnection.Open();
+                    sqlCommand.Parameters.Add(new SqlParameter("NombreUsuario", SqlDbType.VarChar) { Value = NombreUsuario });
 
-                    using (SqlDataReader SqlDataReader = SqlCommand.ExecuteReader())
-                    {
-                        if (SqlDataReader.HasRows)
+                  
+                        sqlConnection.Open();
+
+                        using (SqlDataReader dataReader = sqlCommand.ExecuteReader())
                         {
-                            while (SqlDataReader.Read())
+                            if (dataReader.HasRows)
                             {
-                                Usuario usuario = new Usuario();
-                                usuario.mail = SqlDataReader["Mail"].ToString();
-                                usuario.nombre_usuario = SqlDataReader["NombreUsuario"].ToString();
-                                usuario.contrasena = SqlDataReader["Contraseña"].ToString();
-                                usuario.apellido = SqlDataReader["Apellido"].ToString();
-                                usuario.nombre = SqlDataReader["Nombre"].ToString();
-                                usuario.id = Convert.ToInt32(SqlDataReader["Id"]);
-
-                                Usuarios.Add(usuario);
-
+                                while (dataReader.Read())
+                                {
+                                    Usuario usuario = new Usuario();
+                                    usuario.id = Convert.ToInt32(dataReader["Id"]);
+                                    usuario.nombre = dataReader["Nombre"].ToString();
+                                    usuario.apellido = dataReader["Apellido"].ToString();
+                                    usuario.nombre_usuario = dataReader["NombreUsuario"].ToString();
+                                    usuario.contrasena = dataReader["Contraseña"].ToString();
+                                    usuario.mail = dataReader["Mail"].ToString();
+                                    ObtenerUsuariosPorNombreDeUsuario.Add(usuario);
+                                }
                             }
+                            
+                            dataReader.Close();
                         }
-                    }
-                    SqlConnection.Close();
-
+                        sqlConnection.Close();
+                    
+                   
                 }
-
             }
-            return Usuarios;
-
-
+            return ObtenerUsuariosPorNombreDeUsuario;
         }
 
         public static bool BorrarUnUsuario(int id)
