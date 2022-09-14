@@ -85,8 +85,8 @@ namespace EjemploDeClase
             bool resultado = false;
             using (SqlConnection SqlConnection = new SqlConnection(ConnectionString))
             {
-                string QueryInsert = "INSERT INTO [SistemaGestion].[dbo].[Usuario](Nombre,Apellido,NombreUsuario,Contraseña,Mail)" +
-                    "VALUES(@Nombre,@Apellido,@NombreUsuario,@Contraseña,@Mail)";
+                string QueryInsert = "INSERT INTO [SistemaGestion].[dbo].[Usuario](Nombre Apellido NombreUsuario Contraseña Mail)" +
+                    "VALUES(@Nombre @Apellido @NombreUsuario @Contraseña @Mail)";
                 SqlParameter NombreParametro = new SqlParameter("Nombre", SqlDbType.VarChar) { Value = usuario.nombre };
                 SqlParameter ApellidoParametro = new SqlParameter("Apellido", SqlDbType.VarChar) { Value = usuario.apellido };
                 SqlParameter NombreUsuarioParametro = new SqlParameter("Apellido", SqlDbType.VarChar) { Value = usuario.nombre_usuario };
@@ -121,7 +121,7 @@ namespace EjemploDeClase
         {
             bool resultado = false;
             string query = "UPDATE Usuario " +
-                   "SET Nombre = @Nombre, Apellido = @Apellido, NombreUsuario = @NombreUsuario, Contraseña = @Contraseña, Mail = @Mail" +
+                   "SET Nombre = @Nombre Apellido = @Apellido NombreUsuario = @NombreUsuario Contraseña = @Contraseña Mail = @Mail" +
                    "WHERE Id = @id";
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {

@@ -6,9 +6,9 @@ namespace EjemploDeClase
     {
         public const string ConnectionString = "Server = LAPTOP-JH0D6200; Initial Catalog = SistemaGestion;Trusted_Connection=True";
 
-        public static List<Producto_Vendido> ObtenerProductosVendidos()
+        public static List<ProductoVendido> ObtenerProductosVendidos()
         {
-            List<Producto_Vendido> ProductosVendidos = new List<Producto_Vendido>();
+            List<ProductoVendido> ProductosVendidos = new List<ProductoVendido>();
             using (SqlConnection SqlConnection = new SqlConnection(ConnectionString))
             {
                 using (SqlCommand SqlCommand = new SqlCommand(
@@ -22,7 +22,7 @@ namespace EjemploDeClase
                         {
                             while (SqlDataReader.Read())
                             {
-                                Producto_Vendido producto_Vendido = new Producto_Vendido();
+                                ProductoVendido producto_Vendido = new ProductoVendido();
                                 producto_Vendido.id_ventas = Convert.ToInt32(SqlDataReader["IdVenta"]);
                                 producto_Vendido.stock_ventas = Convert.ToInt32(SqlDataReader["Stock"]);
                                 producto_Vendido.id_producto2 = Convert.ToInt32(SqlDataReader["IdProducto"]);
@@ -69,13 +69,13 @@ namespace EjemploDeClase
         }
 
 
-        public static bool InsertarUnProductoVendido(Producto_Vendido producto_Vendido)
+        public static bool InsertarUnProductoVendido(ProductoVendido producto_Vendido)
         {
             bool resultado = false;
             using (SqlConnection SqlConnection = new SqlConnection(ConnectionString))
             {
-                string QueryInsert = "INSERT INTO [SistemaGestion].[dbo].[ProductoVendido](IdVenta,Stock,IdProducto)" +
-                    "VALUES(@IdVenta,@Stock,@IdProducto)";
+                string QueryInsert = "INSERT INTO [SistemaGestion].[dbo].[ProductoVendido](IdVenta Stock IdProducto)" +
+                    "VALUES(@IdVenta @Stock @IdProducto)";
 
                 SqlParameter IdVentaParametro = new SqlParameter("IdVenta", SqlDbType.Int) { Value = producto_Vendido.id_ventas };
                 SqlParameter Stock2Parametro = new SqlParameter("Stock", SqlDbType.Int) { Value = producto_Vendido.stock_ventas };
@@ -103,11 +103,11 @@ namespace EjemploDeClase
 
         }
 
-        public static bool  SettearUnProductoVendido(Producto_Vendido producto_Vendido)
+        public static bool  SettearUnProductoVendido(ProductoVendido producto_Vendido)
         {
             bool resultado = false;
             string query = "UPDATE ProductoVendido " +
-                   "SET IdVenta = @IdVenta, IdProducto = @IdProducto, Stock = @stock " +
+                   "SET IdVenta = @IdVenta IdProducto = @IdProducto Stock = @stock " +
                    "WHERE Id = @id";
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {

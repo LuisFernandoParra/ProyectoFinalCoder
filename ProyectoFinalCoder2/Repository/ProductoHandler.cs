@@ -24,12 +24,12 @@ namespace EjemploDeClase
                             while (SqlDataReader.Read())
                             {
                                 Producto producto = new Producto();
-                                producto.id= Convert.ToInt32(SqlDataReader["Id"]);
-                                producto.stock = Convert.ToInt32(SqlDataReader["Stock"]);
-                                producto.id_usuario = Convert.ToInt32(SqlDataReader["IdUsuario"]);
-                                producto.costo = Convert.ToInt32(SqlDataReader["Costo"]);
-                                producto.precio_de_venta = Convert.ToInt32(SqlDataReader["PrecioVenta"]);
-                                producto.descripcion = SqlDataReader["Descripciones"].ToString();
+                                producto.Id= Convert.ToInt32(SqlDataReader["Id"]);
+                                producto.Stock = Convert.ToInt32(SqlDataReader["Stock"]);
+                                producto.IdUsuario = Convert.ToInt32(SqlDataReader["IdUsuario"]);
+                                producto.Costo = Convert.ToInt32(SqlDataReader["Costo"]);
+                                producto.PrecioDeVenta = Convert.ToInt32(SqlDataReader["PrecioVenta"]);
+                                producto.Descripcion = SqlDataReader["Descripciones"].ToString();
 
 
                                 descripciones.Add(producto);
@@ -79,13 +79,13 @@ namespace EjemploDeClase
             bool resultado = false;
             using (SqlConnection SqlConnection = new SqlConnection(ConnectionString))
             {
-                string QueryInsert = "INSERT INTO [SistemaGestion].[dbo].[Producto](Descripciones,Costo,PrecioVenta,Stock,IdUsuario)" +
-                    "VALUES(@Descripciones,@Costo,@PrecioVenta,@Stock,@IdUsuario)";
-                SqlParameter DescripcionesParametro = new SqlParameter("Descripciones", SqlDbType.VarChar) { Value = producto.descripcion };
-                SqlParameter CostoParametro = new SqlParameter("Costo", SqlDbType.Int) { Value = producto.costo };
-                SqlParameter PrecioVentaParametro = new SqlParameter("PrecioVenta", SqlDbType.Int) { Value = producto.precio_de_venta };
-                SqlParameter StockParametro = new SqlParameter("Stock", SqlDbType.Int) { Value = producto.stock };
-                SqlParameter IdUsuarioParametro = new SqlParameter("IdUsuario", SqlDbType.Int) { Value = producto.id_usuario };
+                string QueryInsert = "INSERT INTO [SistemaGestion].[dbo].[Producto](Descripciones Costo PrecioVenta Stock IdUsuario)" +
+                    "VALUES(@Descripciones @Costo @PrecioVenta @Stock @IdUsuario)";
+                SqlParameter DescripcionesParametro = new SqlParameter("Descripciones", SqlDbType.VarChar) { Value = producto.Descripcion };
+                SqlParameter CostoParametro = new SqlParameter("Costo", SqlDbType.Int) { Value = producto.Costo };
+                SqlParameter PrecioVentaParametro = new SqlParameter("PrecioVenta", SqlDbType.Int) { Value = producto.PrecioDeVenta };
+                SqlParameter StockParametro = new SqlParameter("Stock", SqlDbType.Int) { Value = producto.Stock };
+                SqlParameter IdUsuarioParametro = new SqlParameter("IdUsuario", SqlDbType.Int) { Value = producto.IdUsuario };
 
                 SqlConnection.Open();
 
@@ -114,16 +114,16 @@ namespace EjemploDeClase
         {
             bool resultado = false;
             string query = "UPDATE Producto " +
-                   "SET Descripciones = @descripciones, Costo = @costo, PrecioVenta = @precioVenta, Stock = @stock " +
+                   "SET Descripciones = @descripciones Costo = @costo PrecioVenta = @precioVenta Stock = @stock " +
                    "WHERE Id = @id";
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
                 SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
-                sqlCommand.Parameters.AddWithValue("@id", producto.id);
-                sqlCommand.Parameters.AddWithValue("@descripciones", producto.descripcion);
-                sqlCommand.Parameters.AddWithValue("@costo", producto.costo);
-                sqlCommand.Parameters.AddWithValue("@precioVenta", producto.precio_de_venta);
-                sqlCommand.Parameters.AddWithValue("@stock", producto.stock);
+                sqlCommand.Parameters.AddWithValue("@id", producto.Id);
+                sqlCommand.Parameters.AddWithValue("@descripciones", producto.Descripcion);
+                sqlCommand.Parameters.AddWithValue("@costo", producto.Costo);
+                sqlCommand.Parameters.AddWithValue("@precioVenta", producto.PrecioDeVenta);
+                sqlCommand.Parameters.AddWithValue("@stock", producto.Stock);
 
 
                 sqlConnection.Open();

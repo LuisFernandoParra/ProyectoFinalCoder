@@ -32,11 +32,11 @@ namespace EjemploDeClase
         {
             return productoHandler.InsertarUnProducto(new Producto
             {
-              id_usuario = producto.id_usuario,
-              descripcion = producto.descripcion,
-              costo = producto.costo,
-              stock = producto.stock,
-              precio_de_venta = producto.precio_de_venta,
+              IdUsuario = producto.id_usuario,
+              Descripcion = producto.descripcion,
+              Costo = producto.costo,
+              Stock = producto.stock,
+              PrecioDeVenta = producto.precio_de_venta,
              
 
             });
@@ -49,12 +49,12 @@ namespace EjemploDeClase
         {
             return productoHandler.SettearUnProducto(new Producto
             {
-             id = producto.id,
-             costo = producto.costo,
-             id_usuario = producto.id_usuario,
-             descripcion=producto.descripcion,
-             precio_de_venta=producto.precio_de_venta,
-             stock = producto.stock,
+             Id = producto.id,
+             Costo = producto.costo,
+             IdUsuario = producto.id_usuario,
+             Descripcion =producto.descripcion,
+             PrecioDeVenta =producto.precio_de_venta,
+             Stock = producto.stock,
              
 
             });

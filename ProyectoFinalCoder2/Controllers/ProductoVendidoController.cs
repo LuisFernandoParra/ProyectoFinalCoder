@@ -30,7 +30,7 @@ namespace EjemploDeClase
 
         public bool InsertarUnProductoVendido([FromBody] InsertarProductoVendido  productoVendido)
         {
-            return ProductoVendidoHandler.InsertarUnProductoVendido(new Producto_Vendido
+            return ProductoVendidoHandler.InsertarUnProductoVendido(new ProductoVendido
             {
                 id_producto2 = productoVendido.IdProducto,
                 id_ventas = productoVendido.IdVenta,
@@ -47,7 +47,7 @@ namespace EjemploDeClase
 
         public bool ModificarUnProductoVendido([FromBody] SettearProductoVendido productoVendido )
         {
-            return ProductoVendidoHandler.SettearUnProductoVendido(new Producto_Vendido
+            return ProductoVendidoHandler.SettearUnProductoVendido(new ProductoVendido
             {
                stock_ventas=productoVendido.Stock,
                id_producto2 = productoVendido.IdProducto,

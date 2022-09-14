@@ -26,8 +26,8 @@ namespace EjemploDeClase
                                 while (dataReader.Read())
                                 {
                                     Venta venta = new Venta();
-                                    venta.id_venta = Convert.ToInt32(dataReader["Id"]);
-                                    venta.comentarios = dataReader["Nombre"].ToString();
+                                    venta.IdVenta = Convert.ToInt32(dataReader["Id"]);
+                                    venta.Comentarios = dataReader["Nombre"].ToString();
                                     listaObtenerVentas.Add(venta);
                                 }
                             }
@@ -75,7 +75,7 @@ namespace EjemploDeClase
                 string QueryInsert = "INSERT INTO [SistemaGestion].[dbo].[Venta](Comentarios)" +
                     "VALUES(@Comentarios)";
 
-                SqlParameter ComentarioParametro = new SqlParameter("Comentarios", SqlDbType.VarChar) { Value = venta.comentarios };
+                SqlParameter ComentarioParametro = new SqlParameter("Comentarios", SqlDbType.VarChar) { Value = venta.Comentarios };
 
 
 
@@ -103,12 +103,12 @@ namespace EjemploDeClase
         {
             bool resultado = false;
             string query = "UPDATE  Venta " +
-                   "SET Comentarios = @Comentarios, WHERE Id = @id";
+                   "SET Comentarios = @ComentariosWHERE Id = @id";
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
                 SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
-                sqlCommand.Parameters.AddWithValue("@id", venta.id_venta);
-                sqlCommand.Parameters.AddWithValue("@Comentarios", venta.comentarios);
+                sqlCommand.Parameters.AddWithValue("@id", venta.IdVenta);
+                sqlCommand.Parameters.AddWithValue("@Comentarios", venta.Comentarios);
 
 
 
